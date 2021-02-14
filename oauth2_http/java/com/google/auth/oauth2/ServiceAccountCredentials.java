@@ -242,6 +242,39 @@ public class ServiceAccountCredentials extends GoogleCredentials
    * @param privateKeyId Private key identifier for the service account. May be null.
    * @param scopes Scope strings for the APIs to be called. May be null or an empty collection,
    *     which results in a credential that must have createScoped called before use.
+   * @return New ServiceAccountCredentials created from a private key.
+   * @throws IOException if the credential cannot be created from the private key.
+   */
+  public static ServiceAccountCredentials fromPkcs8(
+      String clientId,
+      String clientEmail,
+      String privateKeyPkcs8,
+      String privateKeyId,
+      Collection<String> scopes)
+      throws IOException {
+    return fromPkcs8(
+        clientId,
+        clientEmail,
+        privateKeyPkcs8,
+        privateKeyId,
+        scopes,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null);
+  }
+
+  /**
+   * Factory with minimum identifying information using PKCS#8 for the private key.
+   *
+   * @param clientId Client ID of the service account from the console. May be null.
+   * @param clientEmail Client email address of the service account from the console.
+   * @param privateKeyPkcs8 RSA private key object for the service account in PKCS#8 format.
+   * @param privateKeyId Private key identifier for the service account. May be null.
+   * @param scopes Scope strings for the APIs to be called. May be null or an empty collection,
+   *     which results in a credential that must have createScoped called before use.
    * @param defaultScopes Default scope strings for the APIs to be called. May be null or an empty
    *     collection, which results in a credential that must have createScoped called before use.
    * @return New ServiceAccountCredentials created from a private key.
@@ -264,6 +297,45 @@ public class ServiceAccountCredentials extends GoogleCredentials
         defaultScopes,
         null,
         null,
+        null,
+        null,
+        null);
+  }
+
+  /**
+   * Factory with minimum identifying information and custom transport using PKCS#8 for the private
+   * key.
+   *
+   * @param clientId Client ID of the service account from the console. May be null.
+   * @param clientEmail Client email address of the service account from the console.
+   * @param privateKeyPkcs8 RSA private key object for the service account in PKCS#8 format.
+   * @param privateKeyId Private key identifier for the service account. May be null.
+   * @param scopes Scope strings for the APIs to be called. May be null or an empty collection,
+   *     which results in a credential that must have createScoped called before use.
+   * @param transportFactory HTTP transport factory, creates the transport used to get access
+   *     tokens.
+   * @param tokenServerUri URI of the end point that provides tokens.
+   * @return New ServiceAccountCredentials created from a private key.
+   * @throws IOException if the credential cannot be created from the private key.
+   */
+  public static ServiceAccountCredentials fromPkcs8(
+      String clientId,
+      String clientEmail,
+      String privateKeyPkcs8,
+      String privateKeyId,
+      Collection<String> scopes,
+      HttpTransportFactory transportFactory,
+      URI tokenServerUri)
+      throws IOException {
+    return fromPkcs8(
+        clientId,
+        clientEmail,
+        privateKeyPkcs8,
+        privateKeyId,
+        scopes,
+        null,
+        transportFactory,
+        tokenServerUri,
         null,
         null,
         null);
@@ -307,6 +379,48 @@ public class ServiceAccountCredentials extends GoogleCredentials
         transportFactory,
         tokenServerUri,
         null,
+        null,
+        null);
+  }
+
+  /**
+   * Factory with minimum identifying information and custom transport using PKCS#8 for the private
+   * key.
+   *
+   * @param clientId Client ID of the service account from the console. May be null.
+   * @param clientEmail Client email address of the service account from the console.
+   * @param privateKeyPkcs8 RSA private key object for the service account in PKCS#8 format.
+   * @param privateKeyId Private key identifier for the service account. May be null.
+   * @param scopes Scope strings for the APIs to be called. May be null or an empty collection,
+   *     which results in a credential that must have createScoped called before use.
+   * @param transportFactory HTTP transport factory, creates the transport used to get access
+   *     tokens.
+   * @param tokenServerUri URI of the end point that provides tokens.
+   * @param serviceAccountUser The email of the user account to impersonate, if delegating
+   *     domain-wide authority to the service account.
+   * @return New ServiceAccountCredentials created from a private key.
+   * @throws IOException if the credential cannot be created from the private key.
+   */
+  public static ServiceAccountCredentials fromPkcs8(
+      String clientId,
+      String clientEmail,
+      String privateKeyPkcs8,
+      String privateKeyId,
+      Collection<String> scopes,
+      HttpTransportFactory transportFactory,
+      URI tokenServerUri,
+      String serviceAccountUser)
+      throws IOException {
+    return fromPkcs8(
+        clientId,
+        clientEmail,
+        privateKeyPkcs8,
+        privateKeyId,
+        scopes,
+        null,
+        transportFactory,
+        tokenServerUri,
+        serviceAccountUser,
         null,
         null);
   }

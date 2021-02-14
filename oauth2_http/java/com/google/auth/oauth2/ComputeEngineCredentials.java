@@ -170,9 +170,10 @@ public class ComputeEngineCredentials extends GoogleCredentials
 
   /**
    * If scopes or defaultScopes is specified, add "?scopes=comma-separated-list-of-scopes" to the
-   * token url.
+   * token url. defaultScopes is not used unless scopes is empty.
    *
-   * @return token url with the given scopes and defaultScopes
+   * @return token url with the given scopes or defaultScopes. defaultScopes is not used unless
+   *     scopes is emtpy.
    */
   String createTokenUrlWithScopes() {
     GenericUrl tokenUrl = new GenericUrl(getTokenServerEncodedUrl());
